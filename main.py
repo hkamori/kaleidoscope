@@ -25,6 +25,7 @@ except (FileNotFoundError, json.JSONDecodeError):
     credentials_data = {}
 
 if not credentials_data:
+    print("Get your API ID and API Hash from my.telegram.org")
     api_id = input("Enter API ID: ")
     api_hash = input("Enter API hash: ")
     credentials_data = {'api_id': api_id, 'api_hash': api_hash}
