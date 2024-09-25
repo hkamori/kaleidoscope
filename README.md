@@ -68,25 +68,25 @@ Weather:  (weather)
 import time
 ```
 
-3. Define the main function of your module. If your module does not require any arguments, the function signature should be:
+3. Add commands list:
 
 ```python
-async def handle(app: Client, client: Client, message):
+commands = ['command', 'command2' #add more if needed]
 ```
 
-If your command requires arguments, modify the function like this:
+4. Define the main function of your module:
 
 ```python
 async def handle(app: Client, client: Client, message, args):
 ```
 
-4. Write your code inside this function. For example, if you want to send a message using Pyrogram, use the following:
+5. Write your code inside this function. For example, if you want to send a message using Pyrogram, use the following:
 
 ```python
 await app.send_message(message.chat.id, "Your message here")
 ```
 
-5. Working with Pyrogram: To create useful modules, it's important to know how to work with Pyrogram’s methods. Refer to the Pyrogram documentation if needed.
+6. Working with Pyrogram: To create useful modules, it's important to know how to work with Pyrogram’s methods. Refer to the Pyrogram documentation if needed.
 
 #### Step 2: Using Configuration Options
 If your module requires reading or writing to a configuration file, import the configuration functions like this:
@@ -100,42 +100,13 @@ You can then use the following functions:
 - ```config.add_to_config(key, value)``` – Add or update a key-value pair.
 - ```config.read_from_config(key)``` – Read a specific key from the config.
 - ```config.read_all_keys()``` – Get all configuration keys.
-
-#### Step 3: Modify ```message_handler.py```
-Open the ```message_handler.py``` file located in the ```utils``` folder.
-
-Add your module to the import statement. You will find a line like this:
-
-```python
-from modules import ping, help, info, stop, exec, translate, setprefix, restart, ily, moonlove, weather, settings
-```
-You need to add your module name (without the ```.py``` extension) to the list. For example, if your module is named ```modulename.py```, the line should look like this:
-
-```python
-from modules import ping, help, info, stop, exec, translate, setprefix, restart, ily, moonlove, weather, settings, modulename
-```
-
-Add your command handling logic. Find the section where commands are handled and add a new block for your command. For example:
-
-```python
-elif command == 'yourcommand':
-    await app.delete_messages(message.chat.id, message.id)
-    await modulename.handle(app, client, message, args)  # Remove args if not needed
-```
-
-#### Step 4: Add Your Command to the Help Menu
-To list your command in the help section, update the ```msgtosend``` variable in ```help.py``` by adding your new command to the list of available commands. For example:
-
-```python
-f"{e} **ILoveYou:**  (`ily`)\n"
-f"{e} **Weather:**  (`weather`)"
-f"{e} **YourModuleName:** (`yourmodulecommand`)")
-```
+- ```remove_from_config(key)``` – Remove key-value pair.
 
 #### Final Notes
 - Testing: Once you’ve added the command, test your module by running the bot and executing the command in a chat.
 - Expanding: You can continue adding more functionality to your module as needed by using Pyrogram’s extensive methods and utilities.
 By following these steps, you will be able to create and integrate custom modules into your userbot.
+
 ## Contributing
 
 Feel free to fork the repository, submit issues, or contribute new features via pull requests.
