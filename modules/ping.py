@@ -1,6 +1,15 @@
-import socket
-import time
+import time, threading, socket
 from pyrogram import Client
+
+commands = ["ping", "pong", "alive", "check"]
+global_uptime = 0
+stop_toggle = False
+
+def uptime_thread():
+    global global_uptime, stop_toggle
+    while not stop_toggle:
+        time.sleep(1)
+        global_uptime += 1
 
 def send_ping():
     start_time = time.time()
@@ -22,7 +31,10 @@ def count_uptime(global_uptime):
     time_str += f"{hours:02d}:{minutes:02d}:{seconds:02d}"
     return time_str
 
-async def handle(app: Client, client: Client, message, global_uptime):
+uptimethr = threading.Thread(target=uptime_thread, daemon=True)
+uptimethr.start()
+
+async def handle(app: Client, client: Client, message, args):
     ping_time = send_ping()
     uptime = count_uptime(global_uptime)
     await app.send_message(message.chat.id, f"⚡ **Telegram ping:** `{ping_time}`\n🚀 **Uptime:** `{uptime}`")

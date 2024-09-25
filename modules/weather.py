@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
 import python_weather, asyncio, os
 
+commands = ["weather"]
+
 async def handle(app: Client, client: Client, message, args):
     async with python_weather.Client(unit=python_weather.METRIC) as wclient:
         weather = await wclient.get("".join(args))

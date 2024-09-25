@@ -1,8 +1,9 @@
-from ast import arg
 from pyrogram import Client
 from utils import config
 
-async def handle(app: Client, client: Client, message):
+commands = ["settings", "config"]
+
+async def handle(app: Client, client: Client, message, args):
     msg = "⚠  **Configuration**\n\n"
     p = config.read_from_config('prefix')
     cfgkeys = config.read_all_keys()
@@ -20,12 +21,3 @@ async def handle(app: Client, client: Client, message):
         msg += f'❗ `{item[0]}` = "`{item[1]}`"\n'
     msg += f'\nℹ  To change or add new values, use `{p}setvalue (name) (value)`'
     await app.send_message(message.chat.id, msg)
-
-async def setvalue(app: Client, client: Client, message, args):
-    try:
-        key = args[0]
-        value = args[1]
-        config.add_to_config(key, value)
-        await app.send_message(message.chat.id, "💚  **Value set successfully**")
-    except:
-        await app.send_message(message.chat.id, "🛑  **The command is not used correctly**")

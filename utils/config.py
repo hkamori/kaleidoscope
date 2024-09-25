@@ -3,7 +3,7 @@ import os
 import json
 
 CONFIG_FILE = 'config.json'
-DEFAULT_CONFIG = {'prefix': '.', 'help_emoji': '▫️'}
+DEFAULT_CONFIG = {'prefix': '.', 'help_emoji': '▫️', 'trlang': 'en', 'mainemoji': '🌧'}
 
 if not os.path.exists(CONFIG_FILE):
     with open(CONFIG_FILE, 'w') as f:
@@ -46,3 +46,22 @@ def read_all_keys():
         config = json.load(f)
 
     return config
+
+
+def remove_from_config(key):
+    """
+    Removes a key from the config file.
+
+    :param key: The key to remove from the config
+    :return: True if the key was removed, False if the key didn't exist
+    """
+    with open(CONFIG_FILE, 'r') as f:
+        config = json.load(f)
+
+    if key in config:
+        del config[key]
+        with open(CONFIG_FILE, 'w') as f:
+            json.dump(config, f, indent=4)
+        return True
+    else:
+        return False

@@ -1,6 +1,9 @@
 import asyncio
+from asyncio.tasks import sleep
 import requests
 from pyrogram import Client
+
+commands = ["ily"]
 
 async def fetch_hearts_animation():
     response = await asyncio.get_event_loop().run_in_executor(
@@ -9,8 +12,10 @@ async def fetch_hearts_animation():
     )
     return response.json()
 
-async def handle(app: Client, client: Client, message):
+async def handle(app: Client, client: Client, message, args):
     hearts_animation = await fetch_hearts_animation()
+    msg = await app.send_message(message.chat.id, '❤')
+    await asyncio.sleep(0.5)
     for frame in hearts_animation:
-        await app.edit_message_text(chat_id=message.chat.id, message_id=message.id, text=frame)
+        await app.edit_message_text(chat_id=msg.chat.id, message_id=msg.id, text=frame)
         await asyncio.sleep(0.5)  # Adjust the speed of the animation as needed

@@ -10,7 +10,6 @@
 import json, os, sys, time, threading
 from pyrogram import Client, filters
 from requests import api
-from utils.command_parser import parse_command
 from utils.message_handler import handle_message
 # ----------------------------------------------------------------------
 global_uptime = 0
@@ -57,8 +56,8 @@ uptimethr = threading.Thread(target=uptime_thread, daemon=True)
 uptimethr.start()
 print("\n\n                            🌧 Launch was successful!\033[94m")
 # ----------------------------------------------------------------------
-@app.on_message(filters.text & filters.private)
+@app.on_message(filters.text | filters.document)
 async def send_message(client, message):
-    await handle_message(client, message, app, global_uptime)
+    await handle_message(client, message, app)
 
 app.run()

@@ -1,6 +1,8 @@
 import subprocess
 from pyrogram import Client
 
+commands = ["exec"]
+
 async def handle(app: Client, client: Client, message, args):
     command = " ".join(args)
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
