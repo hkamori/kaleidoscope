@@ -3,4 +3,4 @@ psutil==6.0.0
 Pyrogram==2.0.106
 python_weather==2.0.3
 Requests==2.32.3
-tgcrypto==1.2.5
+TgCrypto==1.2.5
