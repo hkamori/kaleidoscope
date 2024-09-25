@@ -71,7 +71,7 @@ import time
 3. Add commands list:
 
 ```python
-commands = ['command', 'command2' #add more if needed]
+commands = ['command', 'command2'] #add more if needed
 ```
 
 4. Define the main function of your module:
