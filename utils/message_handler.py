@@ -40,7 +40,7 @@ async def handle_message(client: Client, message, app: Client):
     elif message.text:
         command, args = parse_command(message.text)
         if command:
-            # await app.delete_messages(message.chat.id, message.id)
+            await app.delete_messages(message.chat.id, message.id)
             command_handled = False
             for module_name, module in modules.items():
                 if hasattr(module, 'commands') and command in module.commands:
